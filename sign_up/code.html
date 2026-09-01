@@ -4,8 +4,7 @@
 <title>Sign Up - Bonova Calcium Quest</title>
 <link href="../shared/mobile-ui.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">
         tailwind.config = {
@@ -97,12 +96,17 @@
 <div class="ambient-bg" aria-hidden="true">
 <div class="ambient-bg__orb ambient-bg__orb--1"></div>
 <div class="ambient-bg__orb ambient-bg__orb--2"></div>
+<div class="ambient-bg__orb ambient-bg__orb--3"></div>
 </div>
 <div class="app-shell">
 <header class="signup-header">
-<h1 class="page-title" style="font-size:clamp(1.35rem,5.5vw,1.75rem);">Bonova Calcium Quest</h1>
-<p class="page-subtitle" style="font-size:0.9rem;">Join the quest for stronger bones</p>
-<div class="mascot-stage mascot-stage--sm">
+<div class="signup-header__badge">
+<span class="material-symbols-outlined">verified_user</span>
+Doctor Registration
+</div>
+<h1 class="page-title" style="font-size:clamp(1.25rem,5vw,1.6rem);">Bonova Calcium Quest</h1>
+<p class="page-subtitle" style="font-size:0.85rem;">Join the quest for stronger bones</p>
+<div class="mascot-stage mascot-stage--sm mascot-float">
 <div class="mascot-stage__aura"></div>
 <div class="mascot-stage__platform"></div>
 <div class="mascot-stage__character-wrap">
@@ -110,14 +114,26 @@
 </div>
 </div>
 </header>
-<main class="app-main" style="padding-top:0.5rem;">
-<h2 class="greeting-title mb-4">Create Account</h2>
-<form>
-<div class="field-group">
-<label class="field-label" for="zone">Division</label>
-<div class="field-select-wrap">
-<select class="field-select inner-shadow-input" id="zone" name="zone">
-<option disabled selected value="">Select Division</option>
+<main class="app-main" style="padding-top:0.25rem;">
+<div class="signup-progress" aria-hidden="true">
+<span class="signup-progress__dot signup-progress__dot--active"></span>
+<span class="signup-progress__dot signup-progress__dot--active"></span>
+<span class="signup-progress__dot signup-progress__dot--active"></span>
+</div>
+<h2 class="greeting-title mb-3" style="text-align:center;">Create Account</h2>
+<p class="greeting-sub mb-4" style="text-align:center;">Fill in your details to get started</p>
+
+<form id="signupForm" novalidate>
+<!-- Location -->
+<section class="signup-form-card" aria-labelledby="location-heading">
+<h3 class="signup-form-card__title" id="location-heading">
+<span class="signup-form-card__title-icon"><span class="material-symbols-outlined">location_on</span></span>
+Location Details
+</h3>
+
+<div class="adv-field" data-searchable-select id="zoneSelect">
+<select class="searchable-select__native" id="zone" name="zone" aria-hidden="true" tabindex="-1">
+<option disabled selected value=""></option>
 <option value="dhaka">Dhaka</option>
 <option value="chattogram">Chattogram</option>
 <option value="rajshahi">Rajshahi</option>
@@ -127,66 +143,111 @@
 <option value="rangpur">Rangpur</option>
 <option value="mymensingh">Mymensingh</option>
 </select>
-<span class="material-symbols-outlined">expand_more</span>
+<span class="searchable-select__icon material-symbols-outlined">map</span>
+<input type="text" class="searchable-select__input" id="zoneInput" placeholder=" " autocomplete="off" role="combobox" aria-expanded="false" aria-controls="zoneList" aria-autocomplete="list">
+<label class="searchable-select__label" for="zoneInput">Division</label>
+<span class="searchable-select__chevron material-symbols-outlined" tabindex="-1">expand_more</span>
+<input type="hidden" class="searchable-select__value" name="zone_value">
+<ul class="searchable-select__list" id="zoneList" role="listbox"></ul>
 </div>
-</div>
-<div class="field-group">
-<label class="field-label" for="region">District</label>
-<div class="field-select-wrap">
-<select class="field-select inner-shadow-input" id="region" name="region">
-<option disabled selected value="">Select District</option>
-<option value="dhaka">Dhaka</option>
-<option value="gazipur">Gazipur</option>
-<option value="narayanganj">Narayanganj</option>
-<option value="narsingdi">Narsingdi</option>
+
+<div class="adv-field searchable-select searchable-select--disabled" data-searchable-select id="regionSelect">
+<select class="searchable-select__native" id="region" name="region" aria-hidden="true" tabindex="-1">
+<option disabled selected value=""></option>
 </select>
-<span class="material-symbols-outlined">expand_more</span>
+<span class="searchable-select__icon material-symbols-outlined">pin_drop</span>
+<input type="text" class="searchable-select__input" id="regionInput" placeholder=" " autocomplete="off" role="combobox" aria-expanded="false" aria-controls="regionList" aria-autocomplete="list" disabled>
+<label class="searchable-select__label" for="regionInput">District</label>
+<span class="searchable-select__chevron material-symbols-outlined" tabindex="-1">expand_more</span>
+<input type="hidden" class="searchable-select__value" name="region_value">
+<ul class="searchable-select__list" id="regionList" role="listbox"></ul>
 </div>
-</div>
-<div class="field-group">
-<label class="field-label" for="territory">Thana</label>
-<div class="field-select-wrap">
-<select class="field-select inner-shadow-input" id="territory" name="territory">
-<option disabled selected value="">Select Thana</option>
-<option value="dhanmondi">Dhanmondi</option>
-<option value="gulshan">Gulshan</option>
-<option value="uttara">Uttara</option>
-<option value="mirpur">Mirpur</option>
+
+<div class="adv-field searchable-select searchable-select--disabled" data-searchable-select id="territorySelect">
+<select class="searchable-select__native" id="territory" name="territory" aria-hidden="true" tabindex="-1">
+<option disabled selected value=""></option>
 </select>
-<span class="material-symbols-outlined">expand_more</span>
+<span class="searchable-select__icon material-symbols-outlined">near_me</span>
+<input type="text" class="searchable-select__input" id="territoryInput" placeholder=" " autocomplete="off" role="combobox" aria-expanded="false" aria-controls="territoryList" aria-autocomplete="list" disabled>
+<label class="searchable-select__label" for="territoryInput">Thana / Upazila</label>
+<span class="searchable-select__chevron material-symbols-outlined" tabindex="-1">expand_more</span>
+<input type="hidden" class="searchable-select__value" name="territory_value">
+<ul class="searchable-select__list" id="territoryList" role="listbox"></ul>
 </div>
+</section>
+
+<!-- Professional -->
+<section class="signup-form-card mt-3" aria-labelledby="professional-heading">
+<h3 class="signup-form-card__title" id="professional-heading">
+<span class="signup-form-card__title-icon"><span class="material-symbols-outlined">medical_services</span></span>
+Professional Info
+</h3>
+
+<div class="adv-field">
+<span class="adv-field__icon material-symbols-outlined">person</span>
+<input class="adv-field__input" id="doctorName" name="doctorName" placeholder=" " type="text" autocomplete="name">
+<label class="adv-field__label" for="doctorName">Doctor Name</label>
 </div>
-<div class="field-group">
-<label class="field-label" for="doctorName">Doctor Name</label>
-<input class="field-input inner-shadow-input" id="doctorName" name="doctorName" placeholder="Dr. Mohammad Karim" type="text">
+
+<div class="adv-field">
+<span class="adv-field__icon material-symbols-outlined">badge</span>
+<input class="adv-field__input" id="fourPID" name="fourPID" placeholder=" " type="text" inputmode="numeric" autocomplete="off">
+<label class="adv-field__label" for="fourPID">4P ID</label>
 </div>
-<div class="field-group">
-<label class="field-label" for="fourPID">4P ID</label>
-<input class="field-input inner-shadow-input" id="fourPID" name="fourPID" placeholder="Enter 4P ID" type="text">
-</div>
-<div class="field-group">
-<label class="field-label" for="specialty">Specialty</label>
-<div class="field-select-wrap">
-<select class="field-select inner-shadow-input" id="specialty" name="specialty">
-<option disabled selected value="">Select Specialty</option>
+
+<div class="adv-field" data-searchable-select id="specialtySelect">
+<select class="searchable-select__native" id="specialty" name="specialty" aria-hidden="true" tabindex="-1">
+<option disabled selected value=""></option>
 <option value="pediatrics">Pediatrics</option>
 <option value="orthopedics">Orthopedics</option>
 <option value="general">General Medicine</option>
+<option value="endocrinology">Endocrinology</option>
+<option value="rheumatology">Rheumatology</option>
+<option value="gynecology">Gynecology &amp; Obstetrics</option>
+<option value="internal">Internal Medicine</option>
+<option value="family">Family Medicine</option>
 </select>
-<span class="material-symbols-outlined">expand_more</span>
+<span class="searchable-select__icon material-symbols-outlined">medical_information</span>
+<input type="text" class="searchable-select__input" id="specialtyInput" placeholder=" " autocomplete="off" role="combobox" aria-expanded="false" aria-controls="specialtyList" aria-autocomplete="list">
+<label class="searchable-select__label" for="specialtyInput">Specialty</label>
+<span class="searchable-select__chevron material-symbols-outlined" tabindex="-1">expand_more</span>
+<input type="hidden" class="searchable-select__value" name="specialty_value">
+<ul class="searchable-select__list" id="specialtyList" role="listbox"></ul>
 </div>
+</section>
+
+<!-- Security -->
+<section class="signup-form-card mt-3" aria-labelledby="security-heading">
+<h3 class="signup-form-card__title" id="security-heading">
+<span class="signup-form-card__title-icon"><span class="material-symbols-outlined">lock</span></span>
+Account Security
+</h3>
+
+<div class="adv-field">
+<span class="adv-field__icon material-symbols-outlined">key</span>
+<input class="adv-field__input" id="password" name="password" placeholder=" " type="password" autocomplete="new-password">
+<label class="adv-field__label" for="password">Password</label>
+<button type="button" class="adv-field__toggle" data-toggle-password="password" aria-label="Show password">
+<span class="material-symbols-outlined">visibility</span>
+</button>
 </div>
-<div class="field-group">
-<label class="field-label" for="password">Password</label>
-<input class="field-input inner-shadow-input" id="password" name="password" placeholder="••••••••" type="password">
+
+<div class="adv-field">
+<span class="adv-field__icon material-symbols-outlined">key</span>
+<input class="adv-field__input" id="confirmPassword" name="confirmPassword" placeholder=" " type="password" autocomplete="new-password">
+<label class="adv-field__label" for="confirmPassword">Confirm Password</label>
+<button type="button" class="adv-field__toggle" data-toggle-password="confirmPassword" aria-label="Show password">
+<span class="material-symbols-outlined">visibility</span>
+</button>
 </div>
-<div class="field-group">
-<label class="field-label" for="confirmPassword">Confirm Password</label>
-<input class="field-input inner-shadow-input" id="confirmPassword" name="confirmPassword" placeholder="••••••••" type="password">
-</div>
+</section>
 </form>
-<div class="btn-stack mt-6" style="padding-bottom:env(safe-area-inset-bottom);">
-<button class="btn-primary btn-blue" type="button" data-preview-nav="login">Create Account</button>
+
+<div class="signup-cta btn-stack mt-4">
+<button class="btn-primary btn-blue" type="button" data-preview-nav="login">
+<span class="material-symbols-outlined">person_add</span>
+Create Account
+</button>
 <a class="btn-secondary text-decoration-none" href="../login/code.html" data-preview-nav="login" style="text-decoration:none;">
 Already have an account? Log In
 <span class="material-symbols-outlined text-lg">arrow_forward</span>
@@ -195,5 +256,7 @@ Already have an account? Log In
 </main>
 </div>
 <link href="../shared/preview-nav.css" rel="stylesheet">
+<script src="../shared/searchable-select.js"></script>
+<script src="../shared/signup-form.js"></script>
 <script src="../shared/preview-nav.js"></script>
 </body></html>

@@ -124,7 +124,7 @@
         }
 
         .level-up-pop {
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
         }
 
         @keyframes popIn {
@@ -141,15 +141,8 @@
             100% { filter: drop-shadow(0 0 30px rgba(0, 93, 182, 0.8)); }
         }
 
-        .mascot-stage__character-wrap {
-            animation: mascot-hero-pop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
         .mascot-stage__character {
             animation: pulseGlow 2s infinite alternate;
-        }
-        @keyframes mascot-hero-pop {
-            0% { transform: scale(0.85) translateY(20px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -219,7 +212,10 @@ Continue
         // Match 3D skeleton to displayed bone age
         var levelUpSkeleton = document.getElementById('level-up-skeleton');
         if (levelUpSkeleton && window.SkeletonMascot) {
-            levelUpSkeleton.src = '../shared/' + SkeletonMascot.forOutsideAge(6);
+            var nextSrc = '../shared/' + SkeletonMascot.forOutsideAge(6);
+            if (levelUpSkeleton.getAttribute('src') !== nextSrc) {
+                levelUpSkeleton.src = nextSrc;
+            }
         }
     </script>
 <link href="../shared/preview-nav.css" rel="stylesheet">
