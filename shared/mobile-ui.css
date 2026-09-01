@@ -683,7 +683,6 @@ body.app-body {
   padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem 0.75rem;
   text-align: center;
   background: linear-gradient(180deg, rgba(246, 250, 254, 0.98) 65%, rgba(246, 250, 254, 0));
-  border-bottom: 1px solid rgba(0, 93, 182, 0.06);
 }
 .signup-header .mascot-stage {
   width: 4.75rem;
@@ -729,8 +728,6 @@ body.app-body {
   font-weight: 800;
   color: #171c1f;
   margin-bottom: 1rem;
-  padding-bottom: 0.625rem;
-  border-bottom: 1px solid rgba(0, 93, 182, 0.08);
 }
 .signup-form-card__title-icon {
   width: 2rem;
