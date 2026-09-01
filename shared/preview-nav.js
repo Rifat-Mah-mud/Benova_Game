@@ -22,7 +22,7 @@
     var hint = document.createElement('div');
     hint.className = 'preview-hint';
     hint.setAttribute('role', 'status');
-    hint.textContent = 'Client preview — tap empty area to skip to level up';
+    hint.textContent = 'Preview — tap empty area to skip to level up';
     document.body.appendChild(hint);
   }
 
