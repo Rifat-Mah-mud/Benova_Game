@@ -5,6 +5,7 @@
   'use strict';
 
   var openInstances = [];
+  var backdropEl = null;
 
   function normalize(str) {
     return (str || '').toLowerCase().trim();
@@ -14,6 +15,14 @@
     openInstances.slice().forEach(function (instance) {
       if (instance !== current) instance.close();
     });
+  }
+
+  function ensureBackdrop() {
+    if (backdropEl) return backdropEl;
+    backdropEl = document.createElement('div');
+    backdropEl.className = 'searchable-select__backdrop';
+    backdropEl.setAttribute('aria-hidden', 'true');
+    return backdropEl;
   }
 
   function SearchableSelect(root) {
@@ -31,7 +40,7 @@
     this.searchQuery = '';
 
     this._onReposition = this._positionPanel.bind(this);
-    this._onDocPointer = this._handleDocPointer.bind(this);
+    this._onDocKey = this._handleDocKey.bind(this);
 
     this._bind();
     this._loadOptions();
@@ -45,6 +54,7 @@
     var panel = document.createElement('div');
     panel.className = 'searchable-select__panel';
     panel.setAttribute('role', 'presentation');
+    panel.id = (this.root.id || 'select') + '-panel';
 
     var header = document.createElement('div');
     header.className = 'searchable-select__panel-header';
@@ -66,6 +76,7 @@
     this.input.addEventListener('input', function () {
       self.searchQuery = self.input.value;
       self._filter(self.searchQuery);
+      self._positionPanel();
       if (!self.isOpen) self.open();
     });
 
@@ -115,16 +126,24 @@
     var item = e.target.closest('[data-value]');
     if (!item) return;
     e.preventDefault();
+    e.stopPropagation();
     this._select({
       value: item.getAttribute('data-value'),
       label: item.getAttribute('data-label') || item.querySelector('.searchable-select__option-label').textContent.trim()
     });
   };
 
-  SearchableSelect.prototype._handleDocPointer = function (e) {
-    if (!this.root.contains(e.target) && !this.panel.contains(e.target)) {
+  SearchableSelect.prototype._handleDocKey = function (e) {
+    if (e.key === 'Escape' && this.isOpen) {
+      e.preventDefault();
       this.close();
+      this.input.blur();
     }
+  };
+
+  SearchableSelect.prototype._isEventInside = function (e) {
+    var target = e.target;
+    return this.root.contains(target) || this.panel.contains(target);
   };
 
   SearchableSelect.prototype._loadOptions = function () {
@@ -253,25 +272,70 @@
   SearchableSelect.prototype._positionPanel = function () {
     if (!this.isOpen) return;
     var rect = this.input.getBoundingClientRect();
-    var gap = 6;
-    var maxHeight = Math.min(280, window.innerHeight - rect.bottom - gap - 16);
-    if (maxHeight < 120) maxHeight = Math.min(280, rect.top - gap - 16);
+    var gap = 8;
+    var viewportPad = 12;
+    var spaceBelow = window.innerHeight - rect.bottom - viewportPad;
+    var spaceAbove = rect.top - viewportPad;
+    var openAbove = spaceBelow < 180 && spaceAbove > spaceBelow;
+    var maxHeight = Math.min(280, openAbove ? spaceAbove - gap : spaceBelow - gap);
+    maxHeight = Math.max(140, maxHeight);
 
-    this.panel.style.position = 'fixed';
-    this.panel.style.left = rect.left + 'px';
-    this.panel.style.width = rect.width + 'px';
-    this.panel.style.right = 'auto';
-    this.panel.style.maxHeight = Math.max(120, maxHeight) + 'px';
+    this.panel.style.left = Math.max(viewportPad, rect.left) + 'px';
+    this.panel.style.width = Math.min(rect.width, window.innerWidth - viewportPad * 2) + 'px';
 
-    if (maxHeight < 120 || rect.bottom + 180 > window.innerHeight) {
+    if (openAbove) {
       this.panel.style.top = 'auto';
       this.panel.style.bottom = (window.innerHeight - rect.top + gap) + 'px';
+      this.panel.style.maxHeight = maxHeight + 'px';
       this.panel.classList.add('searchable-select__panel--above');
     } else {
       this.panel.style.top = (rect.bottom + gap) + 'px';
       this.panel.style.bottom = 'auto';
+      this.panel.style.maxHeight = maxHeight + 'px';
       this.panel.classList.remove('searchable-select__panel--above');
     }
+  };
+
+  SearchableSelect.prototype._showBackdrop = function () {
+    var backdrop = ensureBackdrop();
+    if (!backdrop.parentNode) document.body.appendChild(backdrop);
+    document.body.classList.add('searchable-select-open');
+    requestAnimationFrame(function () {
+      backdrop.classList.add('searchable-select__backdrop--visible');
+    });
+    backdrop.onclick = function () {
+      if (openInstances.length) openInstances[openInstances.length - 1].close();
+    };
+  };
+
+  SearchableSelect.prototype._hideBackdrop = function () {
+    if (!backdropEl) return;
+    backdropEl.classList.remove('searchable-select__backdrop--visible');
+    backdropEl.onclick = null;
+    if (!openInstances.length) {
+      document.body.classList.remove('searchable-select-open');
+    }
+    setTimeout(function () {
+      if (backdropEl && !backdropEl.classList.contains('searchable-select__backdrop--visible')) {
+        backdropEl.remove();
+      }
+    }, 200);
+  };
+
+  SearchableSelect.prototype._attachPanel = function () {
+    document.body.appendChild(this.panel);
+    this.panel.classList.add('searchable-select__panel--open');
+    this.input.setAttribute('aria-controls', this.panel.id);
+  };
+
+  SearchableSelect.prototype._detachPanel = function () {
+    this.panel.classList.remove('searchable-select__panel--open', 'searchable-select__panel--above');
+    this.panel.style.top = '';
+    this.panel.style.bottom = '';
+    this.panel.style.left = '';
+    this.panel.style.width = '';
+    this.panel.style.maxHeight = '';
+    this.root.appendChild(this.panel);
   };
 
   SearchableSelect.prototype.open = function () {
@@ -284,11 +348,13 @@
     this.root.classList.add('searchable-select--open');
     this.input.setAttribute('aria-expanded', 'true');
     this._filter('');
+    this._attachPanel();
     this._positionPanel();
+    this._showBackdrop();
 
     if (openInstances.indexOf(this) === -1) openInstances.push(this);
 
-    document.addEventListener('pointerdown', this._onDocPointer, true);
+    document.addEventListener('keydown', this._onDocKey);
     window.addEventListener('resize', this._onReposition);
     window.addEventListener('scroll', this._onReposition, true);
   };
@@ -304,19 +370,14 @@
     this.root.classList.remove('searchable-select--open');
     this.input.setAttribute('aria-expanded', 'false');
     this._restoreDisplayValue();
-
-    this.panel.style.position = '';
-    this.panel.style.left = '';
-    this.panel.style.top = '';
-    this.panel.style.bottom = '';
-    this.panel.style.width = '';
-    this.panel.style.maxHeight = '';
-    this.panel.classList.remove('searchable-select__panel--above');
+    this._detachPanel();
 
     var idx = openInstances.indexOf(this);
     if (idx !== -1) openInstances.splice(idx, 1);
 
-    document.removeEventListener('pointerdown', this._onDocPointer, true);
+    this._hideBackdrop();
+
+    document.removeEventListener('keydown', this._onDocKey);
     window.removeEventListener('resize', this._onReposition);
     window.removeEventListener('scroll', this._onReposition, true);
   };
@@ -324,7 +385,7 @@
   SearchableSelect.prototype._restoreDisplayValue = function () {
     if (this.hidden.value) {
       var match = this.options.find(function (o) { return o.value === this.hidden.value; }.bind(this));
-      this.input.value = match ? match.label : this.hidden.value;
+      this.input.value = match ? match.label : '';
     } else {
       this.input.value = '';
     }

@@ -749,6 +749,7 @@ body.app-body {
 .adv-field {
   position: relative;
   margin-bottom: 0.875rem;
+  overflow: visible;
 }
 .adv-field:last-child { margin-bottom: 0; }
 .adv-field__icon {
@@ -965,56 +966,71 @@ body.app-body {
   background: rgba(0, 93, 182, 0.08);
 }
 
-/* Dropdown panel (fixed overlay) */
+/* Dropdown portal panel (attached to body when open) */
+.searchable-select__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(23, 28, 31, 0.25);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.searchable-select__backdrop--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 .searchable-select__panel {
   display: none;
   flex-direction: column;
+  position: fixed;
+  z-index: 9999;
   overflow: hidden;
   background: #fff;
-  border: 1.5px solid rgba(0, 93, 182, 0.18);
+  border: 1.5px solid rgba(0, 93, 182, 0.2);
   border-radius: 1rem;
   box-shadow:
-    0 20px 50px -12px rgba(0, 93, 182, 0.28),
-    0 8px 20px -8px rgba(0, 0, 0, 0.12);
-  z-index: 1000;
-  animation: searchable-panel-in 0.18s ease-out;
+    0 24px 60px -16px rgba(0, 93, 182, 0.35),
+    0 10px 24px -10px rgba(0, 0, 0, 0.15);
 }
-.searchable-select--open .searchable-select__panel {
+.searchable-select__panel--open {
   display: flex;
+  animation: searchable-panel-in 0.2s ease-out;
 }
 .searchable-select__panel--above {
   animation-name: searchable-panel-in-above;
 }
 @keyframes searchable-panel-in {
-  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 @keyframes searchable-panel-in-above {
-  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 .searchable-select__panel-header {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 0.875rem;
+  padding: 0.75rem 1rem;
   font-size: 0.75rem;
   font-weight: 700;
   color: #005db6;
-  background: linear-gradient(135deg, rgba(214, 227, 255, 0.55), rgba(183, 234, 255, 0.35));
-  border-bottom: 1px solid rgba(0, 93, 182, 0.1);
+  background: linear-gradient(135deg, rgba(214, 227, 255, 0.65), rgba(183, 234, 255, 0.4));
+  border-bottom: 1px solid rgba(0, 93, 182, 0.12);
   flex-shrink: 0;
 }
 .searchable-select__panel-header .material-symbols-outlined {
   font-size: 1rem;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 .searchable-select__list {
   flex: 1;
   overflow-y: auto;
   margin: 0;
-  padding: 0.375rem;
+  padding: 0.5rem;
   list-style: none;
+  max-height: 240px;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }
@@ -1028,10 +1044,10 @@ body.app-body {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0.625rem 0.875rem;
+  min-height: 2.875rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 0.75rem;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #171c1f;
   cursor: pointer;
@@ -1056,18 +1072,18 @@ body.app-body {
 }
 .searchable-select__option--active,
 .searchable-select__option:hover {
-  background: linear-gradient(135deg, rgba(214, 227, 255, 0.85), rgba(183, 234, 255, 0.55));
+  background: linear-gradient(135deg, rgba(214, 227, 255, 0.9), rgba(183, 234, 255, 0.6));
+  color: #00468c;
+}
+.searchable-select__option--selected {
+  background: rgba(214, 227, 255, 0.4);
   color: #00468c;
 }
 .searchable-select__option:active {
   transform: scale(0.98);
 }
-.searchable-select__option--selected {
-  background: rgba(214, 227, 255, 0.35);
-  color: #00468c;
-}
 .searchable-select__empty {
-  padding: 1rem 0.75rem;
+  padding: 1.25rem 0.75rem;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #8f6f73;
@@ -1080,6 +1096,10 @@ body.app-body {
 .searchable-select--disabled .searchable-select__input {
   cursor: not-allowed;
   background: #eaeef2 !important;
+}
+
+body.searchable-select-open {
+  overflow: hidden;
 }
 
 body[data-preview-screen='signup'] .app-shell {
