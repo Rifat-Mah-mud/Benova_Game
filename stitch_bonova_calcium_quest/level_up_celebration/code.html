@@ -1,0 +1,227 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>Bonova Calcium Quest - Level Up</title>
+<link href="../shared/mobile-ui.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d6dade",
+                        "secondary": "#005db6",
+                        "primary": "#b80049",
+                        "tertiary-fixed": "#b7eaff",
+                        "on-background": "#171c1f",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#edf1f5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#171c1f",
+                        "primary-container": "#e2165f",
+                        "surface-container-highest": "#dfe3e7",
+                        "background": "#f6fafe",
+                        "surface-container-low": "#f0f4f8",
+                        "inverse-primary": "#ffb2be",
+                        "inverse-surface": "#2c3134",
+                        "surface-variant": "#dfe3e7",
+                        "secondary-container": "#63a1ff",
+                        "on-primary-fixed-variant": "#900038",
+                        "on-primary-fixed": "#400014",
+                        "outline-variant": "#e4bdc2",
+                        "tertiary-container": "#007f9c",
+                        "on-secondary-fixed": "#001b3d",
+                        "primary-fixed-dim": "#ffb2be",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#5b3f43",
+                        "tertiary": "#00647c",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-high": "#e4e9ed",
+                        "surface-container": "#eaeef2",
+                        "primary-fixed": "#ffd9de",
+                        "outline": "#8f6f73",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fafdff",
+                        "surface-bright": "#f6fafe",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "surface-tint": "#bc004b",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "surface": "#f6fafe",
+                        "on-tertiary-fixed": "#001f28",
+                        "on-secondary-container": "#00376f",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "secondary-fixed": "#d6e3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "20px",
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "700" }],
+                        "label-lg": ["16px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-md": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            background: #b80049;
+            top: 0;
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.8);
+            animation: twinkle 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        @keyframes twinkle {
+            0% { transform: scale(0.5); opacity: 0.3; }
+            100% { transform: scale(1.5); opacity: 1; }
+        }
+
+        .level-up-pop {
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8) translateY(50px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        
+        .mascot-glow {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(0, 93, 182, 0.4)); }
+            100% { filter: drop-shadow(0 0 30px rgba(0, 93, 182, 0.8)); }
+        }
+
+        .mascot-stage__character-wrap {
+            animation: mascot-hero-pop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .mascot-stage__character {
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes mascot-hero-pop {
+            0% { transform: scale(0.85) translateY(20px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="app-body bg-background text-on-background relative overflow-hidden font-body-md" data-preview-screen="levelUp">
+<div class="ambient-bg" aria-hidden="true">
+<div class="ambient-bg__orb ambient-bg__orb--1"></div>
+<div class="ambient-bg__orb ambient-bg__orb--2"></div>
+</div>
+<div class="absolute inset-0 pointer-events-none z-10 overflow-hidden" id="confetti-container"></div>
+<div class="app-shell" style="min-height:100dvh;">
+<main class="app-main app-main--centered" style="justify-content:space-between;min-height:100dvh;padding-top:2rem;">
+<div class="w-full flex flex-col items-center text-center level-up-pop" style="animation-delay:0.1s;">
+<div class="level-badge">
+<span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">stars</span>
+Now Age 6
+</div>
+<h1 class="page-title">Level Up!</h1>
+<p class="page-subtitle">Your bones are getting stronger!</p>
+</div>
+<div class="relative w-full flex items-center justify-center level-up-pop my-6" style="animation-delay:0.3s;height:clamp(240px,50vmin,320px);">
+<div class="absolute w-64 h-64 rounded-full blur-3xl mascot-glow" style="background:rgba(99,161,255,0.25);"></div>
+<div class="sparkle" style="top:10%;left:15%;"></div>
+<div class="sparkle" style="bottom:25%;right:12%;animation-delay:0.5s;"></div>
+<div class="sparkle" style="top:45%;right:8%;animation-delay:1s;"></div>
+<div class="mascot-stage" style="width:clamp(200px,55vw,280px);height:100%;">
+<div class="mascot-stage__aura"></div>
+<div class="mascot-stage__platform"></div>
+<div class="mascot-stage__character-wrap">
+<img alt="Level Up Skeleton Mascot" class="mascot-stage__character" id="level-up-skeleton" src="../shared/mascots/outside/skeleton-age-5.png">
+</div>
+</div>
+</div>
+<div class="w-full level-up-pop" style="animation-delay:0.5s;padding-bottom:env(safe-area-inset-bottom);">
+<button class="btn-primary" type="button" data-preview-nav="summary">
+Continue
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</main>
+</div>
+<script src="../shared/skeleton-mascot.js"></script>
+<script>
+        // Simple Confetti Generator
+        const colors = ['#b80049', '#005db6', '#b7eaff', '#e2165f'];
+        const container = document.getElementById('confetti-container');
+        
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti-piece');
+            
+            // Randomize properties
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            confetti.style.animationDelay = (Math.random() * 2) + 's';
+            
+            // Make some circular
+            if (Math.random() > 0.5) {
+                confetti.style.borderRadius = '50%';
+                confetti.style.width = '12px';
+                confetti.style.height = '12px';
+            }
+            
+            container.appendChild(confetti);
+        }
+
+        // Match 3D skeleton to displayed bone age
+        var levelUpSkeleton = document.getElementById('level-up-skeleton');
+        if (levelUpSkeleton && window.SkeletonMascot) {
+            levelUpSkeleton.src = '../shared/' + SkeletonMascot.forOutsideAge(6);
+        }
+    </script>
+<link href="../shared/preview-nav.css" rel="stylesheet">
+<script src="../shared/preview-nav.js"></script>
+</body></html>

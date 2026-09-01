@@ -1,0 +1,234 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Session Summary - Bonova Calcium Quest</title>
+<link href="../shared/mobile-ui.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#d6dade",
+                    "secondary": "#005db6",
+                    "primary": "#b80049",
+                    "tertiary-fixed": "#b7eaff",
+                    "on-background": "#171c1f",
+                    "on-tertiary": "#ffffff",
+                    "inverse-on-surface": "#edf1f5",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#004e60",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-surface": "#171c1f",
+                    "primary-container": "#e2165f",
+                    "surface-container-highest": "#dfe3e7",
+                    "background": "#f6fafe",
+                    "surface-container-low": "#f0f4f8",
+                    "inverse-primary": "#ffb2be",
+                    "inverse-surface": "#2c3134",
+                    "surface-variant": "#dfe3e7",
+                    "secondary-container": "#63a1ff",
+                    "on-primary-fixed-variant": "#900038",
+                    "on-primary-fixed": "#400014",
+                    "outline-variant": "#e4bdc2",
+                    "tertiary-container": "#007f9c",
+                    "on-secondary-fixed": "#001b3d",
+                    "primary-fixed-dim": "#ffb2be",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#5b3f43",
+                    "tertiary": "#00647c",
+                    "on-primary-container": "#fffbff",
+                    "surface-container-high": "#e4e9ed",
+                    "surface-container": "#eaeef2",
+                    "primary-fixed": "#ffd9de",
+                    "outline": "#8f6f73",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#fafdff",
+                    "surface-bright": "#f6fafe",
+                    "secondary-fixed-dim": "#a9c7ff",
+                    "surface-tint": "#bc004b",
+                    "tertiary-fixed-dim": "#4cd6ff",
+                    "surface": "#f6fafe",
+                    "on-tertiary-fixed": "#001f28",
+                    "on-secondary-container": "#00376f",
+                    "on-secondary-fixed-variant": "#00468c",
+                    "secondary-fixed": "#d6e3ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "element-gap": "20px",
+                    "unit": "8px",
+                    "gutter": "16px",
+                    "container-padding": "24px",
+                    "touch-target-min": "48px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "30px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-lg": [
+                            "16px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "28px",
+                            {
+                                    "lineHeight": "34px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "18px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+<style>
+        @keyframes float-particle {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="app-body bg-background text-on-background relative overflow-hidden" data-preview-screen="summary">
+<div class="ambient-bg" aria-hidden="true">
+<div class="ambient-bg__orb ambient-bg__orb--1"></div>
+<div class="ambient-bg__orb ambient-bg__orb--3"></div>
+</div>
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0" id="particles"></div>
+<div class="app-shell">
+<main class="app-main" style="padding-top:1.5rem;">
+<header class="greeting-block mb-2">
+<h1 class="page-title" style="font-size:clamp(1.75rem,7vw,2.25rem);">Great Job!</h1>
+<p class="page-subtitle">Quest Complete</p>
+</header>
+<div class="mascot-stage hero-scene" style="height:clamp(200px,42vmin,260px);margin-left:0;margin-right:0;">
+<div class="mascot-stage__rays"></div>
+<div class="mascot-stage__aura"></div>
+<div class="mascot-stage__platform"></div>
+<div class="mascot-stage__character-wrap">
+<img alt="Proud Skeleton Mascot" class="mascot-stage__character" src="../shared/mascots/outside/skeleton-age-8.png">
+</div>
+<span class="material-symbols-outlined text-primary-container absolute top-2 right-4 text-3xl animate-pulse z-10" style="color:#e2165f;">auto_awesome</span>
+<span class="material-symbols-outlined absolute bottom-10 left-2 text-2xl animate-bounce z-10" style="color:#00647c;">star</span>
+</div>
+<div class="score-strip mb-4">
+<span class="material-symbols-outlined" style="color:#00647c;">military_tech</span>
+<span>Best: <strong style="color:#005db6;">1450</strong> · Top: <strong style="color:#00647c;">1800</strong></span>
+</div>
+<div class="stat-bento mb-5">
+<div class="stat-card">
+<span class="material-symbols-outlined stat-card__icon" style="color:#005db6;">stairs</span>
+<span class="stat-card__label">Levels</span>
+<span class="stat-card__value">5 / 5</span>
+</div>
+<div class="stat-card">
+<span class="material-symbols-outlined stat-card__icon" style="color:#b80049;">stars</span>
+<span class="stat-card__label">Points</span>
+<span class="stat-card__value">1450</span>
+</div>
+<div class="stat-card">
+<span class="material-symbols-outlined stat-card__icon" style="color:#00647c;">timer</span>
+<span class="stat-card__label">Time</span>
+<span class="stat-card__value">12:45</span>
+</div>
+<div class="stat-card">
+<span class="material-symbols-outlined stat-card__icon" style="color:#8f6f73;">fastfood</span>
+<span class="stat-card__label">Junk Food</span>
+<span class="stat-card__value">2</span>
+</div>
+</div>
+<div class="btn-stack">
+<button class="btn-primary" type="button" data-preview-nav="gameplay">
+<span class="material-symbols-outlined">replay</span>
+Play Again
+</button>
+<button class="btn-secondary" type="button" data-preview-nav="home">
+<span class="material-symbols-outlined">home</span>
+Home
+</button>
+</div>
+</main>
+</div>
+<script>
+        // Simple celebration particles
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('particles');
+            const colors = ['#e2165f', '#005db6', '#007f9c', '#b7eaff']; // primary-container, secondary, tertiary-container, tertiary-fixed
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Randomize properties
+                const left = Math.random() * 100;
+                const size = Math.random() * 8 + 4;
+                const duration = Math.random() * 3 + 2;
+                const delay = Math.random() * 2;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.left = `${left}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.animation = `float-particle ${duration}s ease-in ${delay}s infinite`;
+                
+                container.appendChild(particle);
+            }
+        });
+    </script>
+<link href="../shared/preview-nav.css" rel="stylesheet">
+<script src="../shared/preview-nav.js"></script>
+</body></html>

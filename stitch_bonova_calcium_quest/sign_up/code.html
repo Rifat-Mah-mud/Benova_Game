@@ -1,0 +1,199 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Sign Up - Bonova Calcium Quest</title>
+<link href="../shared/mobile-ui.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d6dade",
+                        "secondary": "#005db6",
+                        "primary": "#b80049",
+                        "tertiary-fixed": "#b7eaff",
+                        "on-background": "#171c1f",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#edf1f5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#171c1f",
+                        "primary-container": "#e2165f",
+                        "surface-container-highest": "#dfe3e7",
+                        "background": "#f6fafe",
+                        "surface-container-low": "#f0f4f8",
+                        "inverse-primary": "#ffb2be",
+                        "inverse-surface": "#2c3134",
+                        "surface-variant": "#dfe3e7",
+                        "secondary-container": "#63a1ff",
+                        "on-primary-fixed-variant": "#900038",
+                        "on-primary-fixed": "#400014",
+                        "outline-variant": "#e4bdc2",
+                        "tertiary-container": "#007f9c",
+                        "on-secondary-fixed": "#001b3d",
+                        "primary-fixed-dim": "#ffb2be",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#5b3f43",
+                        "tertiary": "#00647c",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-high": "#e4e9ed",
+                        "surface-container": "#eaeef2",
+                        "primary-fixed": "#ffd9de",
+                        "outline": "#8f6f73",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fafdff",
+                        "surface-bright": "#f6fafe",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "surface-tint": "#bc004b",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "surface": "#f6fafe",
+                        "on-tertiary-fixed": "#001f28",
+                        "on-secondary-container": "#00376f",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "secondary-fixed": "#d6e3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "20px",
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "700" }],
+                        "label-lg": ["16px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-md": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="app-body bg-background text-on-background font-body-md antialiased" data-preview-screen="signup">
+<div class="ambient-bg" aria-hidden="true">
+<div class="ambient-bg__orb ambient-bg__orb--1"></div>
+<div class="ambient-bg__orb ambient-bg__orb--2"></div>
+</div>
+<div class="app-shell">
+<header class="signup-header">
+<h1 class="page-title" style="font-size:clamp(1.35rem,5.5vw,1.75rem);">Bonova Calcium Quest</h1>
+<p class="page-subtitle" style="font-size:0.9rem;">Join the quest for stronger bones</p>
+<div class="mascot-stage mascot-stage--sm">
+<div class="mascot-stage__aura"></div>
+<div class="mascot-stage__platform"></div>
+<div class="mascot-stage__character-wrap">
+<img alt="Skeleton Mascot" class="mascot-stage__character" src="../shared/mascots/outside/skeleton-age-2.png">
+</div>
+</div>
+</header>
+<main class="app-main" style="padding-top:0.5rem;">
+<h2 class="greeting-title mb-4">Create Account</h2>
+<form>
+<div class="field-group">
+<label class="field-label" for="zone">Division</label>
+<div class="field-select-wrap">
+<select class="field-select inner-shadow-input" id="zone" name="zone">
+<option disabled selected value="">Select Division</option>
+<option value="dhaka">Dhaka</option>
+<option value="chattogram">Chattogram</option>
+<option value="rajshahi">Rajshahi</option>
+<option value="khulna">Khulna</option>
+<option value="sylhet">Sylhet</option>
+<option value="barishal">Barishal</option>
+<option value="rangpur">Rangpur</option>
+<option value="mymensingh">Mymensingh</option>
+</select>
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+<div class="field-group">
+<label class="field-label" for="region">District</label>
+<div class="field-select-wrap">
+<select class="field-select inner-shadow-input" id="region" name="region">
+<option disabled selected value="">Select District</option>
+<option value="dhaka">Dhaka</option>
+<option value="gazipur">Gazipur</option>
+<option value="narayanganj">Narayanganj</option>
+<option value="narsingdi">Narsingdi</option>
+</select>
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+<div class="field-group">
+<label class="field-label" for="territory">Thana</label>
+<div class="field-select-wrap">
+<select class="field-select inner-shadow-input" id="territory" name="territory">
+<option disabled selected value="">Select Thana</option>
+<option value="dhanmondi">Dhanmondi</option>
+<option value="gulshan">Gulshan</option>
+<option value="uttara">Uttara</option>
+<option value="mirpur">Mirpur</option>
+</select>
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+<div class="field-group">
+<label class="field-label" for="doctorName">Doctor Name</label>
+<input class="field-input inner-shadow-input" id="doctorName" name="doctorName" placeholder="Dr. Mohammad Karim" type="text">
+</div>
+<div class="field-group">
+<label class="field-label" for="fourPID">4P ID</label>
+<input class="field-input inner-shadow-input" id="fourPID" name="fourPID" placeholder="Enter 4P ID" type="text">
+</div>
+<div class="field-group">
+<label class="field-label" for="specialty">Specialty</label>
+<div class="field-select-wrap">
+<select class="field-select inner-shadow-input" id="specialty" name="specialty">
+<option disabled selected value="">Select Specialty</option>
+<option value="pediatrics">Pediatrics</option>
+<option value="orthopedics">Orthopedics</option>
+<option value="general">General Medicine</option>
+</select>
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+<div class="field-group">
+<label class="field-label" for="password">Password</label>
+<input class="field-input inner-shadow-input" id="password" name="password" placeholder="••••••••" type="password">
+</div>
+<div class="field-group">
+<label class="field-label" for="confirmPassword">Confirm Password</label>
+<input class="field-input inner-shadow-input" id="confirmPassword" name="confirmPassword" placeholder="••••••••" type="password">
+</div>
+</form>
+<div class="btn-stack mt-6" style="padding-bottom:env(safe-area-inset-bottom);">
+<button class="btn-primary btn-blue" type="button" data-preview-nav="login">Create Account</button>
+<a class="btn-secondary text-decoration-none" href="../login/code.html" data-preview-nav="login" style="text-decoration:none;">
+Already have an account? Log In
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</a>
+</div>
+</main>
+</div>
+<link href="../shared/preview-nav.css" rel="stylesheet">
+<script src="../shared/preview-nav.js"></script>
+</body></html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Bonova Calcium Quest - Home</title>
+<link href="../shared/mobile-ui.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d6dade",
+                        "secondary": "#005db6",
+                        "primary": "#b80049",
+                        "tertiary-fixed": "#b7eaff",
+                        "on-background": "#171c1f",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#edf1f5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#171c1f",
+                        "primary-container": "#e2165f",
+                        "surface-container-highest": "#dfe3e7",
+                        "background": "#f6fafe",
+                        "surface-container-low": "#f0f4f8",
+                        "inverse-primary": "#ffb2be",
+                        "inverse-surface": "#2c3134",
+                        "surface-variant": "#dfe3e7",
+                        "secondary-container": "#63a1ff",
+                        "on-primary-fixed-variant": "#900038",
+                        "on-primary-fixed": "#400014",
+                        "outline-variant": "#e4bdc2",
+                        "tertiary-container": "#007f9c",
+                        "on-secondary-fixed": "#001b3d",
+                        "primary-fixed-dim": "#ffb2be",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#5b3f43",
+                        "tertiary": "#00647c",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-high": "#e4e9ed",
+                        "surface-container": "#eaeef2",
+                        "primary-fixed": "#ffd9de",
+                        "outline": "#8f6f73",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fafdff",
+                        "surface-bright": "#f6fafe",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "surface-tint": "#bc004b",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "surface": "#f6fafe",
+                        "on-tertiary-fixed": "#001f28",
+                        "on-secondary-container": "#00376f",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "secondary-fixed": "#d6e3ff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "element-gap": "20px",
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "touch-target-min": "48px",
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    fontFamily: {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    fontSize: {
+                        "headline-lg-mobile": ["24px", { lineHeight: "30px", fontWeight: "700" }],
+                        "label-lg": ["16px", { lineHeight: "20px", fontWeight: "700" }],
+                        "headline-lg": ["28px", { lineHeight: "34px", fontWeight: "700" }],
+                        "body-md": ["18px", { lineHeight: "26px", fontWeight: "500" }],
+                        "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "800" }]
+                    },
+                    boxShadow: {
+                        'ambient': '0 20px 40px -15px rgba(0, 93, 182, 0.08)',
+                        'ambient-bottom': '0 -10px 30px rgba(0, 93, 182, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="app-body bg-background text-on-surface font-body-md" data-preview-screen="home">
+<div class="ambient-bg" aria-hidden="true">
+<div class="ambient-bg__orb ambient-bg__orb--1"></div>
+<div class="ambient-bg__orb ambient-bg__orb--2"></div>
+<div class="ambient-bg__orb ambient-bg__orb--3"></div>
+</div>
+<div class="app-shell">
+<header class="app-header">
+<div class="app-header__row">
+<button class="app-header__btn" aria-label="Menu" type="button">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="app-header__title">Bonova Calcium Quest</h1>
+<button class="app-header__btn" aria-label="Account" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</div>
+</header>
+<main class="app-main app-main--with-nav">
+<section class="greeting-block">
+<h2 class="greeting-title">Welcome back,<br>Dr. Rahman</h2>
+<p class="greeting-sub">Ready to build stronger bones?</p>
+<div class="score-grid">
+<div class="score-chip score-chip--best">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="score-chip__text">Best: <strong>4,200</strong></span>
+</div>
+<div class="score-chip score-chip--top">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="score-chip__text">Top: 9,850</span>
+</div>
+</div>
+</section>
+<section class="hero-scene">
+<div class="mascot-stage mascot-float w-full h-full">
+<div class="mascot-stage__aura"></div>
+<div class="mascot-stage__ground-glow"></div>
+<div class="mascot-stage__platform"></div>
+<div class="mascot-stage__character-wrap">
+<img alt="Skeleton Mascot" class="mascot-stage__character" src="../shared/mascots/outside/skeleton-age-5.png">
+</div>
+</div>
+<div class="stage-badge">
+<span class="stage-badge__dot"></span>
+Stage 2: Forming
+</div>
+</section>
+<div class="btn-stack">
+<button class="btn-primary" type="button" data-preview-nav="gameplay">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+Start Game
+</button>
+<button class="btn-secondary" type="button">
+<span class="material-symbols-outlined">help</span>
+How to Play
+</button>
+</div>
+</main>
+<nav class="bottom-nav" aria-label="Main navigation">
+<div class="bottom-nav__inner">
+<button class="bottom-nav__item bottom-nav__item--active" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+Quest
+</button>
+<button class="bottom-nav__item" type="button">
+<span class="material-symbols-outlined">accessibility_new</span>
+Skeleton
+</button>
+<button class="bottom-nav__item" type="button">
+<span class="material-symbols-outlined">monitor_heart</span>
+Health
+</button>
+<button class="bottom-nav__item" type="button">
+<span class="material-symbols-outlined">emoji_events</span>
+Awards
+</button>
+</div>
+</nav>
+</div>
+<link href="../shared/preview-nav.css" rel="stylesheet">
+<script src="../shared/preview-nav.js"></script>
+</body></html>

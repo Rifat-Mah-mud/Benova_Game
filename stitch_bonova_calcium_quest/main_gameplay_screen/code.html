@@ -1,0 +1,596 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title>Bonova Calcium Quest - Gameplay</title>
+<link href="../shared/mobile-ui.css" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts: Plus Jakarta Sans for Medical Play Aesthetic -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d6dade",
+                        "secondary": "#005db6",
+                        "primary": "#b80049",
+                        "tertiary-fixed": "#b7eaff",
+                        "on-background": "#171c1f",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#edf1f5",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-surface": "#171c1f",
+                        "primary-container": "#e2165f",
+                        "surface-container-highest": "#dfe3e7",
+                        "background": "#f6fafe",
+                        "surface-container-low": "#f0f4f8",
+                        "inverse-primary": "#ffb2be",
+                        "inverse-surface": "#2c3134",
+                        "surface-variant": "#dfe3e7",
+                        "secondary-container": "#63a1ff",
+                        "on-primary-fixed-variant": "#900038",
+                        "on-primary-fixed": "#400014",
+                        "outline-variant": "#e4bdc2",
+                        "tertiary-container": "#007f9c",
+                        "on-secondary-fixed": "#001b3d",
+                        "primary-fixed-dim": "#ffb2be",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#5b3f43",
+                        "tertiary": "#00647c",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-high": "#e4e9ed",
+                        "surface-container": "#eaeef2",
+                        "primary-fixed": "#ffd9de",
+                        "outline": "#8f6f73",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#fafdff",
+                        "surface-bright": "#f6fafe",
+                        "secondary-fixed-dim": "#a9c7ff",
+                        "surface-tint": "#bc004b",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "surface": "#f6fafe",
+                        "on-tertiary-fixed": "#001f28",
+                        "on-secondary-container": "#00376f",
+                        "on-secondary-fixed-variant": "#00468c",
+                        "secondary-fixed": "#d6e3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "element-gap": "20px",
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "700" }],
+                        "label-lg": ["16px", { "lineHeight": "20px", "fontWeight": "700" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-md": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Ambient Tonal Depth & Soft-Tactile Modernism Styles */
+        .ambient-shadow {
+            box-shadow: 0 20px 40px -15px rgba(0, 93, 182, 0.08);
+        }
+        .inner-pressed {
+            box-shadow: inset 0 2px 4px rgba(0, 93, 182, 0.1);
+        }
+        .tactile-button {
+            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+            box-shadow: 0 4px 0 rgba(184, 0, 73, 0.3); /* Primary shadow */
+        }
+        .tactile-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 rgba(184, 0, 73, 0.3);
+        }
+        
+        /* Drag Motion Trail Effect */
+        .motion-trail {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+            background: inherit;
+            opacity: 0.4;
+            z-index: -1;
+            animation: trail 1s infinite alternate;
+        }
+        @keyframes trail {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.6; }
+            100% { transform: scale(1.1) translate(-10px, -20px); opacity: 0; }
+        }
+        
+        /* Dropzone Glow — removed; feed skeleton directly */
+
+        /* Food Token Base */
+        .food-token {
+            width: clamp(56px, 17vw, 76px);
+            height: clamp(56px, 17vw, 76px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.35rem, 4.5vw, 1.85rem);
+            position: absolute;
+            background-color: white;
+            box-shadow: 0 8px 20px rgba(0, 93, 182, 0.14);
+            border: 2px solid #a9c7ff;
+            cursor: pointer;
+            user-select: none;
+            touch-action: none;
+        }
+        
+        /* Junk Food Modifier */
+        .food-token.junk {
+            border-color: #ffdad6;
+            background-color: #fff;
+        }
+        
+        /* Floating Animation for idle tokens */
+        @keyframes float-idle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .floating {
+            animation: float-idle 3s ease-in-out infinite;
+        }
+        .floating:nth-child(even) { animation-delay: 1.5s; }
+        .floating:nth-child(3n) { animation-duration: 4s; }
+
+        body.game-body, html {
+            height: 100%;
+            overflow: hidden;
+            background-color: #f6fafe;
+        }
+        .gameplay-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-height: 0;
+        }
+        .play-area {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            min-height: 0;
+        }
+        .mascot-zone {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: clamp(200px, 38vh, 280px);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .mascot-zone .mascot-stage {
+            width: clamp(160px, 42vw, 200px);
+            height: clamp(200px, 34vh, 250px);
+            margin-bottom: 0.5rem;
+            z-index: 2;
+        }
+        .mascot-zone .mascot-stage__aura {
+            animation: mascot-breathe 2.5s ease-in-out infinite;
+        }
+        .mascot-zone .mascot-stage--feed-target {
+            transition: transform 0.25s ease, filter 0.25s ease;
+        }
+        .mascot-zone .mascot-stage--hover {
+            transform: scale(1.03);
+            filter: drop-shadow(0 8px 20px rgba(0, 100, 124, 0.35));
+        }
+        .mascot-zone .mascot-stage--shake {
+            animation: skeleton-shake 0.45s ease-in-out;
+        }
+        @keyframes skeleton-shake {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            25% { transform: translateX(-6px) rotate(-2deg); }
+            75% { transform: translateX(6px) rotate(2deg); }
+        }
+        .mascot-stage__character-wrap.is-eating {
+            animation: skeleton-chomp 0.45s ease-in-out;
+        }
+        .mascot-stage__character-wrap.is-happy {
+            animation: skeleton-smile-bounce 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes skeleton-chomp {
+            0%, 100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(4px) scale(1.04); }
+            70% { transform: translateY(2px) scale(1.02); }
+        }
+        @keyframes skeleton-smile-bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .reaction-bubble {
+            position: absolute;
+            top: -4%;
+            right: -8%;
+            min-width: 4.5rem;
+            min-height: 4.5rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 800;
+            line-height: 1.1;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.2s ease, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 6;
+            pointer-events: none;
+            box-shadow: 0 8px 20px rgba(0, 93, 182, 0.18);
+        }
+        .reaction-bubble--show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .reaction-bubble--yummy {
+            background: #b7eaff;
+            color: #004e60;
+            border: 2px solid #4cd6ff;
+        }
+        .reaction-bubble--not-yummy {
+            background: #ffdad6;
+            color: #93000a;
+            border: 2px solid #ffb2be;
+        }
+        .mascot-stage__character-wrap--evolve {
+            animation: skeleton-evolve 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes skeleton-evolve {
+            0% { transform: scale(0.88); opacity: 0.4; filter: brightness(1.4); }
+            60% { transform: scale(1.06); opacity: 1; filter: brightness(1.15); }
+            100% { transform: scale(1); opacity: 1; filter: brightness(1); }
+        }
+        .food-token--flying-to-mouth {
+            transition: left 0.35s ease-in, top 0.35s ease-in, transform 0.35s ease-in, opacity 0.35s ease-in !important;
+            z-index: 50 !important;
+        }
+        .food-token--eaten {
+            pointer-events: none;
+            animation: food-eaten 0.45s ease-in forwards;
+        }
+        @keyframes food-eaten {
+            to { transform: scale(0); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="game-body app-body text-on-surface antialiased font-body-md select-none" data-preview-screen="gameplay">
+<div class="app-shell" style="min-height:100dvh;max-height:100dvh;">
+<header class="app-header" style="padding-bottom:0.5rem;">
+<div class="app-header__row">
+<button class="app-header__btn" aria-label="Back to home" type="button" data-preview-nav="home">
+<span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">arrow_back</span>
+</button>
+<h1 class="app-header__title">Calcium Quest</h1>
+<div class="app-header__avatar">
+<span class="material-symbols-outlined text-xl">face</span>
+</div>
+</div>
+</header>
+<main class="gameplay-main app-main" style="padding:0.75rem 1rem 0;padding-bottom:calc(4.5rem + env(safe-area-inset-bottom));">
+<div class="game-hud mb-3">
+<div class="flex justify-between items-center mb-3">
+<div class="font-bold text-secondary text-sm sm:text-base" id="hud-level-age">
+Level 1 <span class="text-on-surface-variant">·</span> Age <span id="hud-age">2</span>
+</div>
+<div class="score-chip score-chip--top" style="padding:0.35rem 0.75rem;font-size:0.8rem;">
+<span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:1rem;">stars</span>
+<span id="hud-score">0</span> pts
+</div>
+</div>
+<div class="progress-track">
+<div class="progress-fill" id="progress-fill" style="width:0%;"></div>
+<div class="progress-nodes" id="progress-nodes">
+<span class="progress-node"></span>
+<span class="progress-node"></span>
+<span class="progress-node"></span>
+<span class="progress-node"></span>
+<span class="progress-node"></span>
+</div>
+</div>
+</div>
+<div class="play-area" id="play-area">
+<div class="absolute inset-0 pointer-events-none opacity-25">
+<div class="absolute top-8 left-2 w-28 h-28 rounded-full bg-tertiary-fixed blur-2xl"></div>
+<div class="absolute bottom-16 right-4 w-36 h-36 rounded-full bg-secondary-fixed blur-3xl"></div>
+</div>
+<div class="food-token floating" data-calcium="true" style="top:8%;left:12%;">🥛</div>
+<div class="food-token floating" data-calcium="true" style="top:22%;right:15%;">🐟</div>
+<div class="food-token junk floating" data-calcium="false" style="top:12%;right:42%;">🥤</div>
+<div class="food-token floating" data-calcium="true" style="top:38%;left:8%;">🥦</div>
+<div class="food-token junk floating" data-calcium="false" style="top:42%;right:8%;">🍟</div>
+<div class="food-token floating" data-calcium="true" style="top:52%;left:45%;transform:translate(-50%,-50%);">🧀</div>
+<div class="mascot-zone">
+<div class="mascot-stage mascot-stage--feed-target" id="skeleton-target">
+<div class="mascot-stage__aura"></div>
+<div class="mascot-stage__character-wrap" id="skeleton-wrap">
+<img alt="Friendly Skeleton Mascot" class="mascot-stage__character" id="game-skeleton" src="../shared/mascots/in-game/skeleton-age-2.png" data-frame="idle">
+<div class="reaction-bubble" id="reaction-bubble" role="status" aria-live="polite"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<nav class="bottom-nav" aria-label="Game navigation">
+<div class="bottom-nav__inner">
+<button class="bottom-nav__item bottom-nav__item--active" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">explore</span>
+Quest
+</button>
+<button class="bottom-nav__item" type="button">
+<span class="material-symbols-outlined">accessibility_new</span>
+Skeleton
+</button>
+<button class="bottom-nav__item" type="button">
+<span class="material-symbols-outlined">monitor_heart</span>
+Health
+</button>
+<button class="bottom-nav__item" type="button">
+<span class="material-symbols-outlined">emoji_events</span>
+Awards
+</button>
+</div>
+</nav>
+</div>
+<script src="../shared/skeleton-mascot.js"></script>
+<script>
+(function () {
+    var FEEDS_PER_LEVEL = 5;
+    var POINTS_GOOD = 90;
+    var POINTS_BAD = 15;
+
+    var state = {
+        level: 1,
+        feedCount: 0,
+        score: 0,
+        isFeeding: false
+    };
+
+    var skeletonImg = document.getElementById('game-skeleton');
+    var skeletonWrap = document.getElementById('skeleton-wrap');
+    var skeletonTarget = document.getElementById('skeleton-target');
+    var reactionBubble = document.getElementById('reaction-bubble');
+    var progressFill = document.getElementById('progress-fill');
+    var progressNodes = document.querySelectorAll('#progress-nodes .progress-node');
+    var hudAge = document.getElementById('hud-age');
+    var hudScore = document.getElementById('hud-score');
+    var playArea = document.getElementById('play-area');
+    var dragToken = null;
+    var dragOffset = { x: 0, y: 0 };
+
+    function assetBase() {
+        return '../shared/';
+    }
+
+    function currentAge() {
+        return SkeletonMascot.ageForFeedCount(state.feedCount);
+    }
+
+    function updateSkeleton(evolve) {
+        var age = currentAge();
+        var nextSrc = assetBase() + SkeletonMascot.forFeedCount(state.feedCount);
+        if (skeletonImg.getAttribute('src') !== nextSrc) {
+            skeletonImg.src = nextSrc;
+            skeletonImg.alt = 'Skeleton mascot, age ' + age;
+            if (evolve) {
+                skeletonWrap.classList.remove('mascot-stage__character-wrap--evolve');
+                void skeletonWrap.offsetWidth;
+                skeletonWrap.classList.add('mascot-stage__character-wrap--evolve');
+            }
+        }
+        hudAge.textContent = age;
+    }
+
+    function updateHud() {
+        hudScore.textContent = state.score;
+        var pct = Math.min(100, (state.feedCount / FEEDS_PER_LEVEL) * 100);
+        progressFill.style.width = pct + '%';
+        progressNodes.forEach(function (node, i) {
+            node.classList.toggle('progress-node--done', i < state.feedCount);
+        });
+    }
+
+    function clearSkeletonMood() {
+        skeletonWrap.classList.remove('is-eating', 'is-happy', 'is-unhappy');
+        skeletonTarget.classList.remove('mascot-stage--shake');
+    }
+
+    function showReactionBubble(text, type) {
+        reactionBubble.textContent = text;
+        reactionBubble.className = 'reaction-bubble reaction-bubble--show reaction-bubble--' + type;
+        clearTimeout(showReactionBubble._timer);
+        showReactionBubble._timer = setTimeout(function () {
+            reactionBubble.classList.remove('reaction-bubble--show');
+        }, 1600);
+    }
+
+    function setSkeletonFrame(frame) {
+        var age = currentAge();
+        var src = assetBase() + SkeletonMascot.inGameFrame(age, frame);
+        var fallback = assetBase() + SkeletonMascot.inGamePath(age);
+        skeletonImg.onerror = function () {
+            skeletonImg.onerror = null;
+            if (skeletonImg.src !== fallback) skeletonImg.src = fallback;
+        };
+        skeletonImg.src = src;
+        skeletonImg.dataset.frame = frame;
+    }
+
+    function getMouthPoint() {
+        var rect = skeletonImg.getBoundingClientRect();
+        return {
+            x: rect.left + rect.width * 0.5,
+            y: rect.top + rect.height * 0.24
+        };
+    }
+
+    function flyFoodToMouth(token, callback) {
+        var areaRect = playArea.getBoundingClientRect();
+        var mouth = getMouthPoint();
+        token.classList.add('food-token--flying-to-mouth');
+        token.style.left = (mouth.x - areaRect.left - token.offsetWidth / 2) + 'px';
+        token.style.top = (mouth.y - areaRect.top - token.offsetHeight / 2) + 'px';
+        token.style.transform = 'scale(0.35)';
+        token.style.opacity = '0';
+        setTimeout(callback, 380);
+    }
+
+    function playEatAnimation(isGood, callback) {
+        clearSkeletonMood();
+        setSkeletonFrame('mouth-open');
+        skeletonWrap.classList.add('is-eating');
+        setTimeout(function () {
+            setSkeletonFrame('chew');
+        }, 200);
+        setTimeout(function () {
+            skeletonWrap.classList.remove('is-eating');
+            setSkeletonFrame(isGood ? 'happy' : 'sad');
+            skeletonWrap.classList.add(isGood ? 'is-happy' : 'is-unhappy');
+            if (!isGood) skeletonTarget.classList.add('mascot-stage--shake');
+            showReactionBubble(isGood ? 'Yummy!' : 'Not yummy', isGood ? 'yummy' : 'not-yummy');
+            setTimeout(function () {
+                clearSkeletonMood();
+                setSkeletonFrame('idle');
+                state.isFeeding = false;
+                if (callback) callback();
+            }, isGood ? 1200 : 1000);
+        }, 420);
+    }
+
+    function onGoodFeed(token) {
+        var previousAge = currentAge();
+        state.feedCount = Math.min(state.feedCount + 1, FEEDS_PER_LEVEL);
+        state.score += POINTS_GOOD;
+        updateHud();
+        flyFoodToMouth(token, function () {
+            token.remove();
+            playEatAnimation(true, function () {
+                updateSkeleton(currentAge() !== previousAge);
+            });
+        });
+    }
+
+    function onBadFeed(token) {
+        state.score = Math.max(0, state.score - POINTS_BAD);
+        updateHud();
+        flyFoodToMouth(token, function () {
+            token.remove();
+            playEatAnimation(false);
+        });
+    }
+
+    function hitSkeleton(x, y) {
+        var rect = skeletonTarget.getBoundingClientRect();
+        var padX = rect.width * 0.08;
+        var padTop = rect.height * 0.05;
+        return (
+            x >= rect.left + padX &&
+            x <= rect.right - padX &&
+            y >= rect.top + padTop &&
+            y <= rect.bottom
+        );
+    }
+
+    function onPointerDown(e) {
+        if (state.isFeeding) return;
+        var token = e.target.closest('.food-token');
+        if (!token || token.classList.contains('food-token--eaten')) return;
+        dragToken = token;
+        var areaRect = playArea.getBoundingClientRect();
+        var rect = token.getBoundingClientRect();
+        dragOffset.x = e.clientX - rect.left;
+        dragOffset.y = e.clientY - rect.top;
+        token.setPointerCapture(e.pointerId);
+        token.classList.remove('floating');
+        token.style.position = 'absolute';
+        token.style.left = (rect.left - areaRect.left) + 'px';
+        token.style.top = (rect.top - areaRect.top) + 'px';
+        token.style.right = 'auto';
+        token.style.transform = 'none';
+        token.style.zIndex = '40';
+        e.preventDefault();
+    }
+
+    function onPointerMove(e) {
+        if (!dragToken) return;
+        var areaRect = playArea.getBoundingClientRect();
+        dragToken.style.left = (e.clientX - areaRect.left - dragOffset.x) + 'px';
+        dragToken.style.top = (e.clientY - areaRect.top - dragOffset.y) + 'px';
+        dragToken.style.right = 'auto';
+        dragToken.style.transform = 'none';
+        skeletonTarget.classList.toggle('mascot-stage--hover', hitSkeleton(e.clientX, e.clientY));
+    }
+
+    function onPointerUp(e) {
+        if (!dragToken) return;
+        skeletonTarget.classList.remove('mascot-stage--hover');
+        var token = dragToken;
+        var isCalcium = token.dataset.calcium === 'true';
+        dragToken = null;
+        token.style.zIndex = '';
+
+        if (hitSkeleton(e.clientX, e.clientY)) {
+            state.isFeeding = true;
+            token.classList.add('food-token--eaten');
+            if (isCalcium && state.feedCount < FEEDS_PER_LEVEL) {
+                onGoodFeed(token);
+            } else {
+                onBadFeed(token);
+            }
+            return;
+        }
+    }
+
+    playArea.addEventListener('pointerdown', onPointerDown);
+    playArea.addEventListener('pointermove', onPointerMove);
+    playArea.addEventListener('pointerup', onPointerUp);
+    playArea.addEventListener('pointercancel', onPointerUp);
+
+    updateSkeleton(false);
+    updateHud();
+})();
+</script>
+<link href="../shared/preview-nav.css" rel="stylesheet">
+<script src="../shared/preview-nav.js"></script>
+</body></html>

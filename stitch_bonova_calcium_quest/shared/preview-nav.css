@@ -1,0 +1,26 @@
+/* Optional banner for static client preview walkthrough */
+.preview-hint {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  max-width: min(92vw, 22rem);
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  color: #004e60;
+  background: rgba(183, 234, 255, 0.95);
+  border: 1px solid rgba(0, 100, 124, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 93, 182, 0.15);
+  pointer-events: none;
+}
+
+body[data-preview-screen='gameplay'] .preview-hint {
+  top: auto;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 5.25rem);
+}
