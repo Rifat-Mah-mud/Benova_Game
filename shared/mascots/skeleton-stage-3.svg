@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="bone3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#d6e3ff"/>
+      <stop offset="100%" stop-color="#005db6"/>
+    </linearGradient>
+    <radialGradient id="heroGlow" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#4cd6ff" stop-opacity="0.55"/>
+      <stop offset="70%" stop-color="#b7eaff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#b7eaff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="strongGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <ellipse cx="100" cy="135" rx="85" ry="100" fill="url(#heroGlow)"/>
+  <g filter="url(#strongGlow)">
+    <!-- Skull - confident -->
+    <ellipse cx="100" cy="48" rx="42" ry="46" fill="url(#bone3)" stroke="#00468c" stroke-width="3"/>
+    <ellipse cx="84" cy="46" rx="11" ry="13" fill="#fff" stroke="#00468c" stroke-width="2"/>
+    <ellipse cx="116" cy="46" rx="11" ry="13" fill="#fff" stroke="#00468c" stroke-width="2"/>
+    <circle cx="84" cy="48" r="5" fill="#171c1f"/>
+    <circle cx="116" cy="48" r="5" fill="#171c1f"/>
+    <circle cx="86" cy="46" r="2" fill="#fff"/>
+    <circle cx="118" cy="46" r="2" fill="#fff"/>
+    <path d="M88 64 Q100 74 112 64" stroke="#00468c" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    <!-- Spine - solid -->
+    <rect x="92" y="84" width="16" height="60" rx="8" fill="url(#bone3)" stroke="#00468c" stroke-width="2.5"/>
+    <!-- Strong ribs -->
+    <path d="M60 92 Q100 106 140 92" stroke="#005db6" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M58 108 Q100 122 142 108" stroke="#005db6" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M60 124 Q100 136 140 124" stroke="#005db6" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <!-- Hero pose arms -->
+    <path d="M92 96 L48 72 L38 95" stroke="#00468c" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M108 96 L152 72 L162 95" stroke="#00468c" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <circle cx="38" cy="98" r="10" fill="url(#bone3)" stroke="#00468c" stroke-width="2.5"/>
+    <circle cx="162" cy="98" r="10" fill="url(#bone3)" stroke="#00468c" stroke-width="2.5"/>
+    <!-- Hips -->
+    <ellipse cx="100" cy="148" rx="32" ry="14" fill="url(#bone3)" stroke="#00468c" stroke-width="2.5"/>
+    <!-- Strong legs -->
+    <path d="M84 158 L78 215 L74 248" stroke="#00468c" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <path d="M116 158 L122 215 L126 248" stroke="#00468c" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <ellipse cx="74" cy="254" rx="14" ry="9" fill="url(#bone3)" stroke="#00468c" stroke-width="2.5"/>
+    <ellipse cx="126" cy="254" rx="14" ry="9" fill="url(#bone3)" stroke="#00468c" stroke-width="2.5"/>
+  </g>
+  <!-- Celebration sparkles -->
+  <path d="M30 60 L32 66 L38 68 L32 70 L30 76 L28 70 L22 68 L28 66 Z" fill="#e2165f"/>
+  <path d="M168 50 L170 55 L175 57 L170 59 L168 64 L166 59 L161 57 L166 55 Z" fill="#ffb2be"/>
+  <path d="M175 200 L177 204 L181 206 L177 208 L175 212 L173 208 L169 206 L173 204 Z" fill="#4cd6ff"/>
+  <circle cx="25" cy="175" r="3" fill="#63a1ff"/>
+  <circle cx="172" cy="140" r="2.5" fill="#e2165f" opacity="0.8"/>
+</svg>
