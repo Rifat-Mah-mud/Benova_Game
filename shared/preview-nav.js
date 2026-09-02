@@ -12,17 +12,19 @@
     summary: '../session_summary/code.html'
   };
 
+  var PREVIEW_HINT = '';
+
   function go(routeKey) {
     var href = ROUTES[routeKey];
     if (href) window.location.href = href;
   }
 
   function injectHint() {
-    if (document.querySelector('.preview-hint')) return;
+    if (!PREVIEW_HINT || document.querySelector('.preview-hint')) return;
     var hint = document.createElement('div');
     hint.className = 'preview-hint';
     hint.setAttribute('role', 'status');
-    hint.textContent = 'Preview — drag item to see how it works, then tap empty area to skip to level up';
+    hint.textContent = PREVIEW_HINT;
     document.body.appendChild(hint);
   }
 

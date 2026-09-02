@@ -183,7 +183,6 @@ Continue
 </div>
 </main>
 </div>
-<script src="../shared/skeleton-mascot.js"></script>
 <script>
         // Simple Confetti Generator
         const colors = ['#b80049', '#005db6', '#b7eaff', '#e2165f'];
@@ -207,15 +206,6 @@ Continue
             }
             
             container.appendChild(confetti);
-        }
-
-        // Match 3D skeleton to displayed bone age
-        var levelUpSkeleton = document.getElementById('level-up-skeleton');
-        if (levelUpSkeleton && window.SkeletonMascot) {
-            var nextSrc = '../shared/' + SkeletonMascot.forOutsideAge(6);
-            if (levelUpSkeleton.getAttribute('src') !== nextSrc) {
-                levelUpSkeleton.src = nextSrc;
-            }
         }
     </script>
 <link href="../shared/preview-nav.css" rel="stylesheet">

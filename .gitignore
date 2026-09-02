@@ -1,23 +1,13 @@
-# Archives (source export duplicate of stitch_bonova_calcium_quest/)
+# Archives
 *.zip
 
-# --- Not needed for HTML screen preview ---
-
-# Stitch design mockups (reference screenshots; code.html does not use these)
+# Stitch design mockups (not used by HTML preview)
 **/screen.png
 
-# Python image-processing pipeline (dev-only)
-stitch_bonova_calcium_quest/shared/process-skeleton-transparency.py
-stitch_bonova_calcium_quest/shared/requirements-transparency.txt
+# Dev-only mascot tooling
+shared/mascots/_raw/
 
-# Unused mascot assets (HTML/JS use PNGs in mascots/in-game and mascots/outside only)
-stitch_bonova_calcium_quest/shared/mascots/skeleton-stage-*.svg
-stitch_bonova_calcium_quest/shared/mascots/outside/skeleton-age-50-alt.png
-
-# Design notes (not required to run the clickable preview)
-stitch_bonova_calcium_quest/vibrant_bone_quest/
-
-# --- Python runtime (if you run the image scripts locally) ---
+# --- Python runtime ---
 __pycache__/
 *.py[cod]
 *$py.class

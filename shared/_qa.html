@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="skeleton-mascot.css">
+<style>
+  body{margin:0;background:#eef4fb;display:flex;flex-wrap:wrap;gap:8px;padding:10px;}
+  .cell{width:300px;height:420px;position:relative;background:#fff;}
+  .cell img{width:100%;height:100%;object-fit:contain;object-position:center bottom;}
+</style></head>
+<body>
+  <div class="cell"><img src="mascots/in-game/skeleton-age-5.png" alt="age 5 idle"></div>
+  <div class="cell"><img src="mascots/in-game/skeleton-age-5-happy.png" alt="age 5 happy"></div>
+  <div class="cell"><img src="mascots/in-game/skeleton-age-38.png" alt="age 38"></div>
+  <div class="cell"><img id="a" src="mascots/in-game/skeleton-age-5.png" data-age="5" alt="mouth open"></div>
+</body>
+<script src="skeleton-mascot.js"></script>
+<script>
+  SkeletonMascot.setFrame(document.getElementById('a'), 'mouth-open');
+</script>
+</html>

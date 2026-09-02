@@ -3,6 +3,7 @@
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
 <title>Bonova Calcium Quest - Gameplay</title>
 <link href="../shared/mobile-ui.css" rel="stylesheet">
+<link href="../shared/skeleton-mascot.css" rel="stylesheet">
 <!-- Material Symbols -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <!-- Google Fonts: Plus Jakarta Sans for Medical Play Aesthetic -->
@@ -205,6 +206,11 @@
             z-index: 2;
         }
         .mascot-zone .mascot-stage__aura {
+            top: 2%;
+            left: 50%;
+            width: 64%;
+            height: 40%;
+            opacity: 0.55;
             animation: mascot-breathe 2.5s ease-in-out infinite;
         }
         .mascot-zone .mascot-stage--feed-target {
@@ -213,6 +219,15 @@
         .mascot-zone .mascot-stage--hover {
             transform: scale(1.03);
             filter: drop-shadow(0 8px 20px rgba(0, 100, 124, 0.35));
+        }
+        .mascot-zone .mascot-stage--mouth-open .mascot-stage__aura {
+            opacity: 0.9;
+            background: radial-gradient(circle, rgba(255, 210, 90, 0.55) 0%, rgba(255, 210, 90, 0) 70%);
+            animation: mascot-mouth-glow 0.7s ease-in-out infinite;
+        }
+        @keyframes mascot-mouth-glow {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.08); }
         }
         .mascot-zone .mascot-stage--shake {
             animation: skeleton-shake 0.45s ease-in-out;
@@ -224,9 +239,14 @@
         }
         .mascot-stage__character-wrap.is-eating {
             animation: skeleton-chomp 0.45s ease-in-out;
+            animation-fill-mode: none;
         }
         .mascot-stage__character-wrap.is-happy {
             animation: skeleton-smile-bounce 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation-fill-mode: none;
+        }
+        img.mascot-stage__character {
+            transform-origin: bottom center;
         }
         @keyframes skeleton-chomp {
             0%, 100% { transform: translateY(0) scale(1); }
@@ -240,29 +260,33 @@
         }
         .reaction-bubble {
             position: absolute;
-            top: -4%;
-            right: -8%;
-            min-width: 4.5rem;
-            min-height: 4.5rem;
-            padding: 0.5rem;
-            border-radius: 50%;
+            top: 2%;
+            left: 50%;
+            min-width: 3.25rem;
+            min-height: 3.25rem;
+            padding: 0.4rem 0.55rem;
+            border-radius: 999px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 800;
             line-height: 1.1;
             text-align: center;
+            white-space: nowrap;
+            visibility: hidden;
             opacity: 0;
-            transform: scale(0.5);
-            transition: opacity 0.2s ease, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateX(-50%) translateY(6px) scale(0.85);
+            transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0s linear 0.3s;
             z-index: 6;
             pointer-events: none;
             box-shadow: 0 8px 20px rgba(0, 93, 182, 0.18);
         }
         .reaction-bubble--show {
+            visibility: visible;
             opacity: 1;
-            transform: scale(1);
+            transform: translateX(-50%) translateY(0) scale(1);
+            transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0s;
         }
         .reaction-bubble--yummy {
             background: #b7eaff;
@@ -276,6 +300,7 @@
         }
         .mascot-stage__character-wrap--evolve {
             animation: skeleton-evolve 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation-fill-mode: none;
         }
         @keyframes skeleton-evolve {
             0% { transform: scale(0.88); opacity: 0.4; filter: brightness(1.4); }
@@ -312,7 +337,7 @@
 <div class="game-hud mb-3">
 <div class="flex justify-between items-center mb-3">
 <div class="font-bold text-secondary text-sm sm:text-base" id="hud-level-age">
-Level 1 <span class="text-on-surface-variant">·</span> Age <span id="hud-age">2</span>
+Level 1 <span class="text-on-surface-variant">·</span> Age <span id="hud-age">5</span>
 </div>
 <div class="score-chip score-chip--top" style="padding:0.35rem 0.75rem;font-size:0.8rem;">
 <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:1rem;">stars</span>
@@ -345,9 +370,9 @@ Level 1 <span class="text-on-surface-variant">·</span> Age <span id="hud-age">2
 <div class="mascot-stage mascot-stage--feed-target" id="skeleton-target">
 <div class="mascot-stage__aura"></div>
 <div class="mascot-stage__character-wrap" id="skeleton-wrap">
-<img alt="Friendly Skeleton Mascot" class="mascot-stage__character" id="game-skeleton" src="../shared/mascots/in-game/skeleton-age-2.png" data-frame="idle">
-<div class="reaction-bubble" id="reaction-bubble" role="status" aria-live="polite"></div>
+<img alt="Friendly Skeleton Mascot" class="mascot-stage__character" id="game-skeleton" src="../shared/mascots/in-game/skeleton-age-5.png" data-age="5" data-frame="idle" data-mascot-pose="sit">
 </div>
+<div class="reaction-bubble" id="reaction-bubble" role="status" aria-live="polite"></div>
 </div>
 </div>
 </div>
@@ -382,12 +407,12 @@ Awards
 
     var state = {
         level: 1,
-        feedCount: 0,
+        feedCount: 1,
         score: 0,
         isFeeding: false
     };
 
-    var skeletonImg = document.getElementById('game-skeleton');
+    var skeletonEl = document.getElementById('game-skeleton');
     var skeletonWrap = document.getElementById('skeleton-wrap');
     var skeletonTarget = document.getElementById('skeleton-target');
     var reactionBubble = document.getElementById('reaction-bubble');
@@ -398,10 +423,9 @@ Awards
     var playArea = document.getElementById('play-area');
     var dragToken = null;
     var dragOffset = { x: 0, y: 0 };
-
-    function assetBase() {
-        return '../shared/';
-    }
+    var mouthExpecting = false;
+    var chewTimer = null;
+    var chewAlt = false;
 
     function currentAge() {
         return SkeletonMascot.ageForFeedCount(state.feedCount);
@@ -409,15 +433,18 @@ Awards
 
     function updateSkeleton(evolve) {
         var age = currentAge();
-        var nextSrc = assetBase() + SkeletonMascot.forFeedCount(state.feedCount);
-        if (skeletonImg.getAttribute('src') !== nextSrc) {
-            skeletonImg.src = nextSrc;
-            skeletonImg.alt = 'Skeleton mascot, age ' + age;
-            if (evolve) {
-                skeletonWrap.classList.remove('mascot-stage__character-wrap--evolve');
-                void skeletonWrap.offsetWidth;
-                skeletonWrap.classList.add('mascot-stage__character-wrap--evolve');
-            }
+        var prevAge = parseInt(skeletonEl.getAttribute('data-age'), 10);
+        if (!state.isFeeding) {
+            SkeletonMascot.setAge(skeletonEl, age);
+            SkeletonMascot.setFrame(skeletonEl, 'idle');
+            skeletonEl = document.getElementById('game-skeleton') || skeletonEl;
+        } else {
+            skeletonEl.setAttribute('data-age', String(age));
+        }
+        if (evolve && age !== prevAge && !isNaN(prevAge)) {
+            skeletonWrap.classList.remove('mascot-stage__character-wrap--evolve');
+            void skeletonWrap.offsetWidth;
+            skeletonWrap.classList.add('mascot-stage__character-wrap--evolve');
         }
         hudAge.textContent = age;
     }
@@ -438,7 +465,9 @@ Awards
 
     function showReactionBubble(text, type) {
         reactionBubble.textContent = text;
-        reactionBubble.className = 'reaction-bubble reaction-bubble--show reaction-bubble--' + type;
+        reactionBubble.className = 'reaction-bubble reaction-bubble--' + type;
+        void reactionBubble.offsetWidth;
+        reactionBubble.classList.add('reaction-bubble--show');
         clearTimeout(showReactionBubble._timer);
         showReactionBubble._timer = setTimeout(function () {
             reactionBubble.classList.remove('reaction-bubble--show');
@@ -446,23 +475,41 @@ Awards
     }
 
     function setSkeletonFrame(frame) {
-        var age = currentAge();
-        var src = assetBase() + SkeletonMascot.inGameFrame(age, frame);
-        var fallback = assetBase() + SkeletonMascot.inGamePath(age);
-        skeletonImg.onerror = function () {
-            skeletonImg.onerror = null;
-            if (skeletonImg.src !== fallback) skeletonImg.src = fallback;
-        };
-        skeletonImg.src = src;
-        skeletonImg.dataset.frame = frame;
+        SkeletonMascot.setFrame(skeletonEl, frame);
+        skeletonEl = document.getElementById('game-skeleton') || skeletonEl;
     }
 
     function getMouthPoint() {
-        var rect = skeletonImg.getBoundingClientRect();
-        return {
-            x: rect.left + rect.width * 0.5,
-            y: rect.top + rect.height * 0.24
-        };
+        return SkeletonMascot.getMouthPoint(skeletonEl);
+    }
+
+    function foodNearHead(x, y) {
+        return SkeletonMascot.isNearHead(skeletonEl, x, y);
+    }
+
+    function setMouthExpecting(on) {
+        if (state.isFeeding) return;
+        if (mouthExpecting === on) return;
+        mouthExpecting = on;
+        setSkeletonFrame(on ? 'mouth-open' : 'idle');
+        skeletonTarget.classList.toggle('mascot-stage--mouth-open', on);
+    }
+
+    function startChewLoop() {
+        stopChewLoop();
+        chewAlt = false;
+        setSkeletonFrame('chew');
+        chewTimer = setInterval(function () {
+            chewAlt = !chewAlt;
+            setSkeletonFrame(chewAlt ? 'chew-2' : 'chew');
+        }, 180);
+    }
+
+    function stopChewLoop() {
+        if (chewTimer) {
+            clearInterval(chewTimer);
+            chewTimer = null;
+        }
     }
 
     function flyFoodToMouth(token, callback) {
@@ -473,17 +520,15 @@ Awards
         token.style.top = (mouth.y - areaRect.top - token.offsetHeight / 2) + 'px';
         token.style.transform = 'scale(0.35)';
         token.style.opacity = '0';
-        setTimeout(callback, 380);
+        setTimeout(callback, 450);
     }
 
     function playEatAnimation(isGood, callback) {
         clearSkeletonMood();
-        setSkeletonFrame('mouth-open');
+        startChewLoop();
         skeletonWrap.classList.add('is-eating');
         setTimeout(function () {
-            setSkeletonFrame('chew');
-        }, 200);
-        setTimeout(function () {
+            stopChewLoop();
             skeletonWrap.classList.remove('is-eating');
             setSkeletonFrame(isGood ? 'happy' : 'sad');
             skeletonWrap.classList.add(isGood ? 'is-happy' : 'is-unhappy');
@@ -492,10 +537,12 @@ Awards
             setTimeout(function () {
                 clearSkeletonMood();
                 setSkeletonFrame('idle');
+                mouthExpecting = false;
+                skeletonTarget.classList.remove('mascot-stage--mouth-open');
                 state.isFeeding = false;
                 if (callback) callback();
-            }, isGood ? 1200 : 1000);
-        }, 420);
+            }, isGood ? 1400 : 1200);
+        }, 1200);
     }
 
     function onGoodFeed(token) {
@@ -503,6 +550,7 @@ Awards
         state.feedCount = Math.min(state.feedCount + 1, FEEDS_PER_LEVEL);
         state.score += POINTS_GOOD;
         updateHud();
+        setSkeletonFrame('mouth-open');
         flyFoodToMouth(token, function () {
             token.remove();
             playEatAnimation(true, function () {
@@ -514,6 +562,7 @@ Awards
     function onBadFeed(token) {
         state.score = Math.max(0, state.score - POINTS_BAD);
         updateHud();
+        setSkeletonFrame('mouth-open');
         flyFoodToMouth(token, function () {
             token.remove();
             playEatAnimation(false);
@@ -560,6 +609,7 @@ Awards
         dragToken.style.right = 'auto';
         dragToken.style.transform = 'none';
         skeletonTarget.classList.toggle('mascot-stage--hover', hitSkeleton(e.clientX, e.clientY));
+        setMouthExpecting(foodNearHead(e.clientX, e.clientY));
     }
 
     function onPointerUp(e) {
@@ -572,6 +622,8 @@ Awards
 
         if (hitSkeleton(e.clientX, e.clientY)) {
             state.isFeeding = true;
+            mouthExpecting = true;
+            skeletonTarget.classList.add('mascot-stage--mouth-open');
             token.classList.add('food-token--eaten');
             if (isCalcium && state.feedCount < FEEDS_PER_LEVEL) {
                 onGoodFeed(token);
@@ -580,6 +632,7 @@ Awards
             }
             return;
         }
+        setMouthExpecting(false);
     }
 
     playArea.addEventListener('pointerdown', onPointerDown);

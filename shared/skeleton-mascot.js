@@ -1,95 +1,177 @@
 /**
- * 3D cartoon skeleton mascot assets.
- * - in-game: sitting pose (stitch_fskeleton)
- * - outside: standing pose (stitch_friendly_3d_cartoon_skeleton)
+ * In-game sitting skeleton mascot (PNG sprites from stitch_friendly_3d_cartoon_skeleton).
+ * Idle sprites per age + optional mood frames (age 5 has full expression set).
  */
 (function (global) {
-  var IN_GAME_BASE = 'mascots/in-game/skeleton-age-';
-  var OUTSIDE_BASE = 'mascots/outside/skeleton-age-';
+  var FEED_PROGRESSION_AGES = [5, 8, 11, 14, 17];
+  var MOOD_FRAMES = ['idle', 'mouth-open', 'chew', 'chew-2', 'happy', 'sad'];
+  var EXPRESSION_AGE = 5;
+  var EXPRESSION_FRAMES = ['mouth-open', 'chew', 'chew-2', 'happy', 'sad'];
 
-  var IN_GAME_AGES = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35, 38, 41, 44, 47, 50, 53, 56, 59];
-  var OUTSIDE_AGES = [2, 5, 8, 14, 32, 35, 38, 41, 44, 50, 53, 56, 59];
+  function clamp(n, a, b) {
+    return Math.max(a, Math.min(b, n));
+  }
 
-  var STAGE_AGES = {
-    1: 2,
-    2: 5,
-    3: 8,
-    4: 14,
-    5: 32
-  };
-
-  function closestAge(targetAge, ages) {
-    var closest = ages[0];
-    var diff = Math.abs(targetAge - closest);
-    for (var i = 1; i < ages.length; i++) {
-      var d = Math.abs(targetAge - ages[i]);
-      if (d < diff) {
-        diff = d;
-        closest = ages[i];
-      }
+  function resolveEl(el) {
+    if (!el) return null;
+    if (el.id) {
+      var live = document.getElementById(el.id);
+      if (live) return live;
     }
-    return closest;
+    return el;
   }
 
-  function inGameFramePath(age, frame) {
-    if (!frame || frame === 'idle') {
-      return IN_GAME_BASE + age + '.png';
+  function readAge(el) {
+    var fromData = parseInt(el.getAttribute('data-age'), 10);
+    if (!isNaN(fromData)) return fromData;
+    var match = (el.getAttribute('src') || '').match(/age-(\d+)/);
+    return match ? parseInt(match[1], 10) : 5;
+  }
+
+  function assetBase(el) {
+    var src = el.getAttribute('src') || '';
+    var match = src.match(/^(.*\/skeleton-age-)\d+(?:-[^/]+)?\.png$/);
+    if (match) return match[1];
+    return '../shared/mascots/in-game/skeleton-age-';
+  }
+
+  function framePath(el, age, frame) {
+    var base = assetBase(el);
+    frame = frame || 'idle';
+    if (frame === 'idle') return base + age + '.png';
+    return base + EXPRESSION_AGE + '-' + frame + '.png';
+  }
+
+  function preloadExpressions(el) {
+    var base = assetBase(el);
+    var i;
+    for (i = 0; i < EXPRESSION_FRAMES.length; i++) {
+      var img = new Image();
+      img.src = base + EXPRESSION_AGE + '-' + EXPRESSION_FRAMES[i] + '.png';
     }
-    return IN_GAME_BASE + age + '-' + frame + '.png';
   }
 
-  function inGameFrame(age, frame) {
-    return inGameFramePath(age, frame);
+  function clearMood(el) {
+    var i;
+    for (i = 0; i < MOOD_FRAMES.length; i++) {
+      el.classList.remove('skelly--' + MOOD_FRAMES[i]);
+      el.classList.remove('mascot-mood--' + MOOD_FRAMES[i]);
+    }
   }
 
-  function outsidePath(age) {
-    return OUTSIDE_BASE + age + '.png';
+  function normalizeFrame(frame) {
+    return frame || 'idle';
   }
 
-  function forInGameAge(targetAge) {
-    return inGameFramePath(closestAge(targetAge, IN_GAME_AGES), 'idle');
+  function applyFrame(el, age, frame) {
+    frame = normalizeFrame(frame);
+    el.setAttribute('data-frame', frame);
+    el.setAttribute('data-mood', frame);
+    el.src = framePath(el, age, frame);
+    return el;
   }
 
-  function forOutsideAge(targetAge) {
-    return outsidePath(closestAge(targetAge, OUTSIDE_AGES));
+  function setFrame(el, frame) {
+    el = resolveEl(el);
+    if (!el) return el;
+    clearMood(el);
+    frame = normalizeFrame(frame);
+    el.classList.add('skelly--' + frame);
+    el.classList.add('mascot-mood--' + frame);
+    return applyFrame(el, readAge(el), frame);
   }
 
-  function forStage(stage, context) {
-    var age = STAGE_AGES[stage] || STAGE_AGES[1];
-    return context === 'in-game' ? inGameFramePath(age, 'idle') : outsidePath(age);
+  function setAge(el, age) {
+    el = resolveEl(el);
+    if (!el || age == null) return el;
+    age = clamp(Number(age) || 5, 2, 59);
+    el.setAttribute('data-age', String(age));
+    el.setAttribute('aria-label', 'Skeleton mascot, age ' + age);
+    return setFrame(el, el.getAttribute('data-frame') || 'idle');
   }
 
-  /** In-game feeding milestones — one age per successful calcium feed. */
-  var FEED_PROGRESSION_AGES = [2, 5, 8, 11, 14, 17, 20, 23, 26, 29];
+  function getMouthPoint(el) {
+    el = resolveEl(el) || el;
+    var rect = el.getBoundingClientRect();
+    return {
+      x: rect.left + rect.width * 0.5,
+      y: rect.top + rect.height * 0.2
+    };
+  }
 
-  function forFeedCount(feedCount) {
-    var index = Math.min(Math.max(feedCount, 0), FEED_PROGRESSION_AGES.length - 1);
-    return inGameFramePath(FEED_PROGRESSION_AGES[index], 'idle');
+  function getHeadBounds(el) {
+    el = resolveEl(el) || el;
+    var rect = el.getBoundingClientRect();
+    return {
+      left: rect.left + rect.width * 0.12,
+      right: rect.right - rect.width * 0.12,
+      top: rect.top,
+      bottom: rect.top + rect.height * 0.45,
+      centerX: rect.left + rect.width * 0.5,
+      centerY: rect.top + rect.height * 0.2
+    };
+  }
+
+  function isNearHead(el, x, y, padding) {
+    var head = getHeadBounds(el);
+    padding = padding == null ? 72 : padding;
+    return (
+      x >= head.left - padding &&
+      x <= head.right + padding &&
+      y >= head.top - padding &&
+      y <= head.bottom + padding
+    );
+  }
+
+  function mount(target, opts) {
+    opts = opts || {};
+    if (!target) return null;
+
+    var el = resolveEl(target);
+    if (!el || el.tagName.toLowerCase() !== 'img') return el;
+
+    var age = opts.age != null ? opts.age : readAge(el);
+    var mood = opts.mood || el.getAttribute('data-frame') || 'idle';
+    el.classList.add('mascot-stage__character', 'skelly', 'skelly--sit');
+    el.setAttribute('data-mascot-pose', 'sit');
+    preloadExpressions(el);
+    setAge(el, age);
+    return setFrame(el, mood);
   }
 
   function ageForFeedCount(feedCount) {
-    var index = Math.min(Math.max(feedCount, 0), FEED_PROGRESSION_AGES.length - 1);
+    var index = Math.min(Math.max(feedCount - 1, 0), FEED_PROGRESSION_AGES.length - 1);
     return FEED_PROGRESSION_AGES[index];
   }
 
-  function applyToImage(img, src) {
-    if (img) img.src = src;
+  function forFeedCount(feedCount) {
+    return 'png:age-' + ageForFeedCount(feedCount);
+  }
+
+  function autoMount() {
+    var img = document.getElementById('game-skeleton');
+    if (img && img.tagName && img.tagName.toLowerCase() === 'img') {
+      mount(img);
+    }
+  }
+
+  autoMount();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoMount);
   }
 
   global.SkeletonMascot = {
-    inGameAges: IN_GAME_AGES,
-    outsideAges: OUTSIDE_AGES,
-    stageAges: STAGE_AGES,
-    inGamePath: function (age) { return inGameFramePath(age, 'idle'); },
-    inGameFrame: inGameFrame,
-    inGameFrames: ['idle', 'mouth-open', 'chew', 'happy', 'sad'],
-    outsidePath: outsidePath,
-    forInGameAge: forInGameAge,
-    forOutsideAge: forOutsideAge,
-    forStage: forStage,
+    inGameFrames: MOOD_FRAMES,
+    expressionAge: EXPRESSION_AGE,
+    hasFrames: function () { return true; },
+    hasChewAlt: function () { return true; },
     forFeedCount: forFeedCount,
     ageForFeedCount: ageForFeedCount,
-    feedProgressionAges: FEED_PROGRESSION_AGES,
-    applyToImage: applyToImage
+    setAge: setAge,
+    setFrame: setFrame,
+    getMouthPoint: getMouthPoint,
+    getHeadBounds: getHeadBounds,
+    isNearHead: isNearHead,
+    mount: mount
   };
 })(typeof window !== 'undefined' ? window : globalThis);
